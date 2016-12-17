@@ -20,7 +20,9 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 	}
 	outgoingMessage := OutgoingMessage{}
 	outgoingMessage.Recipient.ID = message.Sender.ID
-	outgoingMessage.Message.Text = message.MessageData.Text
+	messageData := &OutgoingMessageData{}
+	messageData.Text = message.MessageData.Text
+	outgoingMessage.Message = messageData
 
 	bodyB, err := json.Marshal(outgoingMessage)
 	if err != nil {
