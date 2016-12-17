@@ -37,6 +37,12 @@
 			"path": "github.com/kardianos/osext",
 			"revision": "c2c54e542fb797ad986b31721e1baedf214ca413",
 			"revisionTime": "2016-08-11T00:15:26Z"
+		},
+		{
+			"checksumSHA1": "XbRlPRFZ6E87+JyOV4xyK9HN+2I=",
+			"path": "github.com/stvp/rollbar",
+			"revision": "3eb4713e2655cd1be805795be31b3f85b74b05fd",
+			"revisionTime": "2016-05-27T21:11:11Z"
 		}
 	],
 	"rootPath": "github.com/uccmen/spotibotfb"
