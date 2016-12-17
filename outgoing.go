@@ -9,6 +9,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"time"
 
 	"github.com/stvp/rollbar"
 )
@@ -18,6 +19,7 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 	if err != nil {
 		rollbar.Error(rollbar.ERR, err)
 	}
+	time.Sleep(3 * time.Second)
 	outgoingMessage := OutgoingMessage{}
 	outgoingMessage.Recipient.ID = message.Sender.ID
 	messageData := &OutgoingMessageData{}

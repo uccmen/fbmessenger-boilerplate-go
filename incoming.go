@@ -56,7 +56,7 @@ func handleIncoming(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				rollbar.Error(rollbar.ERR, err)
 			}
-			time.Sleep(2 * time.Second)
+			time.Sleep(3 * time.Second)
 			handleOutgoing(w, message)
 		}
 	}
