@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -51,6 +52,10 @@ func sendAction(w http.ResponseWriter, recipientID string, action string) error 
 		rollbar.Error(rollbar.ERR, err)
 		return err
 	}
+
+	defer resp.Body.Close()
+
+	log.Printf("SEND ACTION BODY %v", string(bodyB))
 
 	if resp.StatusCode != http.StatusOK {
 		err = fmt.Errorf("failed to update action: %s successfully - resp %v", action, resp)
