@@ -63,7 +63,5 @@ func sendAction(w http.ResponseWriter, recipientID string, action string) error 
 		return err
 	}
 
-	w.WriteHeader(http.StatusOK)
-
 	return nil
 }
