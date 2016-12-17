@@ -10,6 +10,8 @@ type IncomingMessage struct {
 type OutgoingMessage struct {
 	Recipient Recipient           `json:"recipient,omitempty"`
 	Message   OutgoingMessageData `json:"message,omitempty"`
+
+	SenderAction string `json:"sender_action,omitempty"`
 }
 
 type OutgoingMessageData struct {

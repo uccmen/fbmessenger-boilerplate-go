@@ -14,6 +14,10 @@ import (
 )
 
 func handleOutgoing(w http.ResponseWriter, message Message) {
+	err := sendAction(w, message.Recipient.ID, "typing_on")
+	if err != nil {
+		rollbar.Error(rollbar.ERR, err)
+	}
 	outgoingMessage := OutgoingMessage{}
 	outgoingMessage.Recipient.ID = message.Sender.ID
 	outgoingMessage.Message.Text = message.MessageData.Text
@@ -40,6 +44,11 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 	req.URL.RawQuery = params.Encode()
 	req.Header.Set("Content-Type", "application/json")
 
+	err = sendAction(w, message.Recipient.ID, "typing_off")
+	if err != nil {
+		rollbar.Error(rollbar.ERR, err)
+	}
+
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -47,15 +56,6 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}
-
-	// dump, err := httputil.DumpRequestOut(req, true)
-	// if err != nil {
-	// 	rollbar.Error(rollbar.ERR, err)
-	// 	http.Error(w, "", http.StatusInternalServerError)
-	// 	return
-	// }
-
-	// fmt.Printf("%q", dump)
 
 	defer resp.Body.Close()
 

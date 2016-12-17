@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/stvp/rollbar"
 )
@@ -51,6 +52,11 @@ func handleIncoming(w http.ResponseWriter, r *http.Request) {
 				continue
 			}
 			log.Println("handling outgoing message - ", message.MessageData.Text)
+			err := sendAction(w, message.Recipient.ID, "mark_seen")
+			if err != nil {
+				rollbar.Error(rollbar.ERR, err)
+			}
+			time.Sleep(2 * time.Second)
 			handleOutgoing(w, message)
 		}
 	}
