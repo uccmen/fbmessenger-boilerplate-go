@@ -1,0 +1,43 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"path": "appengine",
+			"revision": ""
+		},
+		{
+			"path": "appengine/urlfetch",
+			"revision": ""
+		},
+		{
+			"path": "appengine/user",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "OhOrsCBM84wZxN9QAvYk+wZkuVY=",
+			"path": "github.com/bugsnag/bugsnag-go",
+			"revision": "0e0aea7fe7d3fa47be41fc8a0e3a92d9668a9020",
+			"revisionTime": "2016-12-16T23:29:57Z"
+		},
+		{
+			"checksumSHA1": "v4wfRtPOY3N4zguDPvB+81Wxycs=",
+			"path": "github.com/bugsnag/bugsnag-go/errors",
+			"revision": "0e0aea7fe7d3fa47be41fc8a0e3a92d9668a9020",
+			"revisionTime": "2016-12-16T23:29:57Z"
+		},
+		{
+			"checksumSHA1": "ki3PAZ/ATvrRaYSQv/9E1Y2ehOo=",
+			"path": "github.com/bugsnag/panicwrap",
+			"revision": "aa7703c9414b36d4e9b2e42e6c704d0bfae7db64",
+			"revisionTime": "2016-09-12T15:55:06Z"
+		},
+		{
+			"checksumSHA1": "g+afVQQVopBLiLB5pFZp/8s6aBs=",
+			"path": "github.com/kardianos/osext",
+			"revision": "c2c54e542fb797ad986b31721e1baedf214ca413",
+			"revisionTime": "2016-08-11T00:15:26Z"
+		}
+	],
+	"rootPath": "github.com/uccmen/spotibotfb"
+}
