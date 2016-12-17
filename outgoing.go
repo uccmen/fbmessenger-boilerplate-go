@@ -48,14 +48,14 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 		return
 	}
 
-	dump, err := httputil.DumpRequestOut(req, true)
-	if err != nil {
-		rollbar.Error(rollbar.ERR, err)
-		http.Error(w, "", http.StatusInternalServerError)
-		return
-	}
+	// dump, err := httputil.DumpRequestOut(req, true)
+	// if err != nil {
+	// 	rollbar.Error(rollbar.ERR, err)
+	// 	http.Error(w, "", http.StatusInternalServerError)
+	// 	return
+	// }
 
-	fmt.Printf("%q", dump)
+	// fmt.Printf("%q", dump)
 
 	defer resp.Body.Close()
 
@@ -72,4 +72,5 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 		fmt.Printf("%q", dump)
 		return
 	}
+	w.WriteHeader(http.StatusOK)
 }
