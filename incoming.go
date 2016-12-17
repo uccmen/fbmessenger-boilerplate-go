@@ -4,18 +4,22 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 
 	"github.com/stvp/rollbar"
 )
 
 func handleIncoming(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	reqB, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		rollbar.Error(rollbar.ERR, err)
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}
+
+	log.Printf("incoming request %s", string(reqB))
 
 	incomingMessage := IncomingMessage{}
 	err = json.Unmarshal(reqB, &incomingMessage)
@@ -38,6 +42,7 @@ func handleIncoming(w http.ResponseWriter, r *http.Request) {
 
 	for _, entry := range *incomingMessage.Entries {
 		for _, message := range entry.Messaging {
+			log.Println("handling outgoing message - ", message.MessageData.Text)
 			handleOutgoing(w, message)
 		}
 	}
