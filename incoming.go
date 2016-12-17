@@ -52,7 +52,7 @@ func handleIncoming(w http.ResponseWriter, r *http.Request) {
 				continue
 			}
 			log.Println("handling outgoing message - ", message.MessageData.Text)
-			err := sendAction(w, message.Recipient.ID, "mark_seen")
+			err := sendAction(w, message.Sender.ID, "mark_seen")
 			if err != nil {
 				rollbar.Error(rollbar.ERR, err)
 			}

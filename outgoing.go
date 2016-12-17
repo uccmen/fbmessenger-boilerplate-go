@@ -14,7 +14,7 @@ import (
 )
 
 func handleOutgoing(w http.ResponseWriter, message Message) {
-	err := sendAction(w, message.Recipient.ID, "typing_on")
+	err := sendAction(w, message.Sender.ID, "typing_on")
 	if err != nil {
 		rollbar.Error(rollbar.ERR, err)
 	}
@@ -46,7 +46,7 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 	req.URL.RawQuery = params.Encode()
 	req.Header.Set("Content-Type", "application/json")
 
-	err = sendAction(w, message.Recipient.ID, "typing_off")
+	err = sendAction(w, message.Sender.ID, "typing_off")
 	if err != nil {
 		rollbar.Error(rollbar.ERR, err)
 	}
