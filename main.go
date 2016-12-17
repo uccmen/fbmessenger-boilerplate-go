@@ -10,6 +10,7 @@ import (
 
 func main() {
 	http.HandleFunc("/health", healthCheck)
+	http.HandleFunc("/webhook", fbWebhook)
 
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), bugsnag.Handler(nil))
 	if err != nil {
