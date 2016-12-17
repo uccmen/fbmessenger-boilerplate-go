@@ -5,14 +5,14 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/bugsnag/bugsnag-go"
+	"github.com/stvp/rollbar"
 )
 
 func main() {
 	http.HandleFunc("/health", healthCheck)
 	http.HandleFunc("/webhook", fbWebhook)
 
-	err := http.ListenAndServe(":"+os.Getenv("PORT"), bugsnag.Handler(nil))
+	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
 		log.Panicln("ListenAndServe: ", err)
 	}
@@ -26,7 +26,7 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	_, err := w.Write([]byte("I'm OK!"))
 	if err != nil {
-		bugsnag.Notify(err)
+		rollbar.Error(rollbar.ERR, err)
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}

@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/bugsnag/bugsnag-go"
+	"github.com/stvp/rollbar"
 )
 
 func handleOutgoing(w http.ResponseWriter, message Message) {
@@ -20,14 +20,14 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 
 	bodyB, err := json.Marshal(outgoingMessage)
 	if err != nil {
-		bugsnag.Notify(err)
+		rollbar.Error(rollbar.ERR, err)
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}
 
 	req, err := http.NewRequest("POST", os.Getenv("FB_MESSENGER_URL"), bytes.NewBuffer(bodyB))
 	if err != nil {
-		bugsnag.Notify(err)
+		rollbar.Error(rollbar.ERR, err)
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}
@@ -41,7 +41,7 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		bugsnag.Notify(err)
+		rollbar.Error(rollbar.ERR, err)
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}
@@ -50,10 +50,12 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 
 	if resp.StatusCode != http.StatusOK {
 		err = fmt.Errorf("Response failed to send successfully")
-		bugsnag.Notify(err, resp)
+		rollbar.Error(rollbar.ERR, err)
 		dump, err := httputil.DumpRequestOut(req, true)
 		if err != nil {
-			log.Fatal(err)
+			rollbar.Error(rollbar.ERR, err)
+			http.Error(w, "", http.StatusInternalServerError)
+			return
 		}
 
 		fmt.Printf("%q", dump)

@@ -3,9 +3,14 @@ package main
 import (
 	"log"
 	"os"
+
+	"github.com/stvp/rollbar"
 )
 
 func init() {
+	if os.Getenv("ROLLBAR_TOKEN") == "" {
+		log.Panicln("ROLLBAR_TOKEN not set")
+	}
 	if os.Getenv("PORT") == "" {
 		log.Panicln("PORT not set")
 	}
@@ -18,4 +23,6 @@ func init() {
 	if os.Getenv("FB_MESSENGER_URL") == "" {
 		log.Panicln("FB_MESSENGER_URL not set")
 	}
+	rollbar.Token = os.Getenv("ROLLBAR_TOKEN")
+	rollbar.Environment = os.Getenv("RELEASE_STAGE") // defaults to "development"
 }

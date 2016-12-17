@@ -6,13 +6,13 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/bugsnag/bugsnag-go"
+	"github.com/stvp/rollbar"
 )
 
 func handleIncoming(w http.ResponseWriter, r *http.Request) {
 	reqB, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		bugsnag.Notify(err)
+		rollbar.Error(rollbar.ERR, err)
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}
@@ -20,7 +20,7 @@ func handleIncoming(w http.ResponseWriter, r *http.Request) {
 	incomingMessage := IncomingMessage{}
 	err = json.Unmarshal(reqB, &incomingMessage)
 	if err != nil {
-		bugsnag.Notify(err)
+		rollbar.Error(rollbar.ERR, err)
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}
@@ -31,7 +31,7 @@ func handleIncoming(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if incomingMessage.Entries == nil {
-		bugsnag.Notify(fmt.Errorf("entry is not provided"))
+		rollbar.Error(rollbar.ERR, fmt.Errorf("entry is not provided"))
 		http.Error(w, "", http.StatusExpectationFailed)
 		return
 	}
