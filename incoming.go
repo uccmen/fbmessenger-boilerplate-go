@@ -20,6 +20,11 @@ func handleIncoming(w http.ResponseWriter, r *http.Request) {
 	}
 
 	log.Printf("incoming request %s", string(reqB))
+	if len(reqB) == 0 {
+		rollbar.Error(rollbar.ERR, fmt.Errorf("body is empty: %s", string(reqB)))
+		http.Error(w, "", http.StatusExpectationFailed)
+		return
+	}
 
 	incomingMessage := IncomingMessage{}
 	err = json.Unmarshal(reqB, &incomingMessage)

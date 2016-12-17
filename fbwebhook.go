@@ -1,24 +1,8 @@
 package main
 
-import (
-	"fmt"
-	"net/http"
-	"net/http/httputil"
-
-	"github.com/stvp/rollbar"
-)
+import "net/http"
 
 func fbWebhook(w http.ResponseWriter, r *http.Request) {
-
-	dump, err := httputil.DumpRequestOut(r, true)
-	if err != nil {
-		rollbar.Error(rollbar.ERR, err)
-		http.Error(w, "", http.StatusInternalServerError)
-		return
-	}
-
-	fmt.Printf("incoming request from webhook!! %q", dump)
-
 	if r.Method == "GET" {
 		confirmSubscription(w, r)
 		return
