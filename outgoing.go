@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -23,6 +24,8 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}
+
+	log.Println(string(bodyB))
 
 	req, err := http.NewRequest("POST", os.Getenv("FB_MESSENGER_URL"), bytes.NewBuffer(bodyB))
 	if err != nil {
