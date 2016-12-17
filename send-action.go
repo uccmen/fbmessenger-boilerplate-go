@@ -53,11 +53,8 @@ func sendAction(w http.ResponseWriter, recipientID string, action string) error 
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		err = fmt.Errorf("failed to update action: %s successfully", action)
-		rollbar.Error(rollbar.ERR, err, &rollbar.Field{
-			Name: "response",
-			Data: resp,
-		})
+		err = fmt.Errorf("failed to update action: %s successfully - resp %v", action, resp)
+		rollbar.Error(rollbar.ERR, err)
 		return err
 	}
 
