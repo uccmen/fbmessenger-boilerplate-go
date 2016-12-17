@@ -42,7 +42,7 @@ func handleIncoming(w http.ResponseWriter, r *http.Request) {
 
 	for _, entry := range *incomingMessage.Entries {
 		for _, message := range entry.Messaging {
-			if message.MessageData.Text == "" {
+			if message.MessageData.Text == "" || message.MessageData.IsEcho {
 				continue
 			}
 			log.Println("handling outgoing message - ", message.MessageData.Text)

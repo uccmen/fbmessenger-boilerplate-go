@@ -44,10 +44,23 @@ type Entry struct {
 }
 
 type Message struct {
-	Sender      Sender      `json:"sender,omitempty"`
-	Recipient   Recipient   `json:"recipient,omitempty"`
-	Timestamp   big.Int     `json:"timestamp,omitempty"`
-	MessageData MessageData `json:"message,omitempty"`
+	Sender      Sender       `json:"sender,omitempty"`
+	Recipient   Recipient    `json:"recipient,omitempty"`
+	Timestamp   big.Int      `json:"timestamp,omitempty"`
+	MessageData MessageData  `json:"message,omitempty"`
+	Read        ReadData     `json:"read,omitempty"`
+	Delivery    DeliveryData `json:"delivery,omitempty"`
+}
+
+type DeliveryData struct {
+	MIDs      []string `json:"mids,omitempty"`
+	Watermark big.Int  `json:"watermark,omitempty"`
+	Sequence  int      `json:"seq,omitempty"`
+}
+
+type ReadData struct {
+	Watermark big.Int `json:"watermark,omitempty"`
+	Sequence  int     `json:"seq,omitempty"`
 }
 
 type Sender struct {
@@ -59,6 +72,8 @@ type Recipient struct {
 }
 
 type MessageData struct {
+	IsEcho      bool          `json:"is_echo,omitempty"`
+	AppID       big.Int       `json:"app_id,omitempty"`
 	MID         string        `json:"mid,omitempty"`
 	Sequence    int           `json:"seq,omitempty"`
 	StickerID   *big.Int      `json:"sticker_id,omitempty"`
