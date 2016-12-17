@@ -13,13 +13,13 @@ type OutgoingMessage struct {
 }
 
 type OutgoingMessageData struct {
-	Text       string                 `json:"text,omitempty"`
-	Attachment OutgoingAttachmentData `json:"attachment,omitempty"`
+	Text       string                  `json:"text,omitempty"`
+	Attachment *OutgoingAttachmentData `json:"attachment,omitempty"`
 }
 
 type OutgoingAttachmentData struct {
-	Type    string  `json:"type,omitempty"`
-	Payload Payload `json:"payload,omitempty"`
+	Type    string   `json:"type,omitempty"`
+	Payload *Payload `json:"payload,omitempty"`
 }
 
 type Element struct {
