@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -46,12 +45,21 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 		return
 	}
 
+	dump, err := httputil.DumpRequestOut(req, true)
+	if err != nil {
+		rollbar.Error(rollbar.ERR, err)
+		http.Error(w, "", http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Printf("%q", dump)
+
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		err = fmt.Errorf("Response failed to send successfully")
 		rollbar.Error(rollbar.ERR, err)
-		dump, err := httputil.DumpRequestOut(req, true)
+		dump, err := httputil.DumpResponse(resp, true)
 		if err != nil {
 			rollbar.Error(rollbar.ERR, err)
 			http.Error(w, "", http.StatusInternalServerError)
@@ -59,7 +67,6 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 		}
 
 		fmt.Printf("%q", dump)
-		log.Println(err.Error())
 		return
 	}
 }
