@@ -24,7 +24,7 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 		return
 	}
 
-	req, err := http.NewRequest("POST", "FB_MESSENGER_URL", bytes.NewBuffer(bodyB))
+	req, err := http.NewRequest("POST", os.Getenv("FB_MESSENGER_URL"), bytes.NewBuffer(bodyB))
 	if err != nil {
 		bugsnag.Notify(err)
 		http.Error(w, "", http.StatusInternalServerError)
