@@ -1,6 +1,9 @@
 package main
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+)
 
 func fbWebhook(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
@@ -13,4 +16,13 @@ func fbWebhook(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "", http.StatusMethodNotAllowed)
 		return
 	}
+
+	err := r.ParseForm()
+	if err != nil {
+		http.Error(w, "", http.StatusInternalServerError)
+		return
+	}
+
+	log.Println(r.Form)
+
 }
