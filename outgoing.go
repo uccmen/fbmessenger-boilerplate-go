@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/http/httputil"
 	"net/url"
 	"os"
 
@@ -50,6 +51,12 @@ func handleOutgoing(w http.ResponseWriter, message Message) {
 	if resp.StatusCode != http.StatusOK {
 		err = fmt.Errorf("Response failed to send successfully")
 		bugsnag.Notify(err, resp)
+		dump, err := httputil.DumpRequestOut(req, true)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("%q", dump)
 		log.Println(err.Error())
 		return
 	}
