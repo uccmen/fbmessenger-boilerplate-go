@@ -12,4 +12,10 @@ func init() {
 	if os.Getenv("HUB_VERIFY_TOKEN") == "" {
 		log.Panicln("HUB_VERIFY_TOKEN not set")
 	}
+	if os.Getenv("FB_PAGE_ACCESS_TOKEN") == "" {
+		log.Panicln("FB_PAGE_ACCESS_TOKEN not set")
+	}
+	if os.Getenv("FB_MESSENGER_URL") == "" {
+		log.Panicln("FB_MESSENGER_URL not set")
+	}
 }
