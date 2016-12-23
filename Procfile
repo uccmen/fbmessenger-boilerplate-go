@@ -1,1 +1,1 @@
-web: bin/spotibotfb
+web: bin/fbmessenger-boilerplate-go

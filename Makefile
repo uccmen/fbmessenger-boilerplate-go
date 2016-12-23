@@ -5,20 +5,20 @@ default: buildmac
 deps:
 	go get github.com/bugsnag/bugsnag-go
 
-bin/spotibotfb: *.go
+bin/fbmessenger-boilerplate-go: *.go
 	$(GO_BUILD_ENV) go build -v -o $@ $^
 
-bin/spotibotfb-mac: *.go
+bin/fbmessenger-boilerplate-go-mac: *.go
 	go build -race -v -o $@ $^
 
-build: bin/spotibotfb
+build: bin/fbmessenger-boilerplate-go
 
-buildmac: bin/spotibotfb-mac
+buildmac: bin/fbmessenger-boilerplate-go-mac
 
 runnotify: buildmac
-	-killall spotibotfb-mac
-	-terminal-notifier -title "spotibotfb" -message "Built and running!" -remove
-	bin/spotibotfb-mac
+	-killall fbmessenger-boilerplate-go-mac
+	-terminal-notifier -title "fbmessenger-boilerplate-go" -message "Built and running!" -remove
+	bin/fbmessenger-boilerplate-go-mac
 
 watch:
 	supervisor --no-restart-on exit -e go,html -i bin --exec make -- runnotify
@@ -30,7 +30,7 @@ test:
 	go test -v .
 
 run: build init
-	bin/spotibotfb
+	bin/fbmessenger-boilerplate-go
 
-heroku: bin/spotibotfb
+heroku: bin/fbmessenger-boilerplate-go
 	heroku container:push web
