@@ -51,6 +51,9 @@ func handleIncoming(w http.ResponseWriter, r *http.Request) {
 			if message.MessageData.Text == "" || message.MessageData.IsEcho {
 				continue
 			}
+			if message.Postback != nil {
+				continue
+			}
 			log.Println("handling outgoing message - ", message.MessageData.Text)
 			err := sendAction(w, message.Sender.ID, "mark_seen")
 			if err != nil {

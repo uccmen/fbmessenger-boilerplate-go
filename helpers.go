@@ -52,6 +52,11 @@ type Message struct {
 	MessageData MessageData  `json:"message,omitempty"`
 	Read        ReadData     `json:"read,omitempty"`
 	Delivery    DeliveryData `json:"delivery,omitempty"`
+	Postback    *Postback    `json:"postback,omitempty"`
+}
+
+type Postback struct {
+	Payload string `json:"payload,omitempty"`
 }
 
 type DeliveryData struct {
