@@ -1,4 +1,4 @@
-# *How to deploy your Go bot to Heroku*
+# *How to deploy your Go chatbot server to Heroku*
 
 * Install the Heroku toolbelt from here https://toolbelt.heroku.com to launch, stop and monitor instances. Sign up for free at https://www.heroku.com if you don't have an account yet.
 * Fetch/clone/fork this repository
