@@ -36,8 +36,8 @@
 ```
 1. PORT="" //3000
 2. HUB_VERIFY_TOKEN="" //your_own_secret_token
-3. FB_PAGE_ACCESS_TOKEN="" //https://rollbar.com/why-rollbar/
+3. FB_PAGE_ACCESS_TOKEN="" //fb page access token saved earlier
 4. FB_MESSENGER_URL="" //https://graph.facebook.com/v2.6/me/messages
-5. ROLLBAR_TOKEN=""
+5. ROLLBAR_TOKEN="" https://rollbar.com/why-rollbar/
 6. RELEASE_STAGE="" //development
 ```
