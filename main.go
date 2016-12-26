@@ -23,7 +23,7 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "", http.StatusMethodNotAllowed)
 		return
 	}
-	w.WriteHeader(http.StatusInternalServerError)
+	w.WriteHeader(http.StatusOK)
 	_, err := w.Write([]byte("I'm OK!"))
 	if err != nil {
 		rollbar.Error(rollbar.ERR, err)
